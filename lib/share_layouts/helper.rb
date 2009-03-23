@@ -24,7 +24,7 @@ module ShareLayouts::Helper
     variables.inject({}) do |h, var|
       var =~ /^@content_for_(.*)$/
       key = $1.intern
-      key = :body if key == :layout
+      key = :body if (key == :layout) &! h.has_key?(:body)
       unless key == :title || key == :breadcrumbs
         h[key] = instance_variable_get(var)
       end
